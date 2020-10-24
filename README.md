@@ -12,3 +12,13 @@ Following are some Interactive stuffs that are available in this project:
 2. Interactive Graphs
 3. Interactive Charts
 4. Interactive Search Bar
+
+# Pages
+
+This contains following pages:
+ 
+ 1. Home Page
+ 2. Contact and Helplines
+ 3. Notification
+ 4. Hospitals and Beds
+ 5. Colleges and Beds
