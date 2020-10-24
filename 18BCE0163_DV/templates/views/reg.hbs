@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>COVID-19 Tracker | Upto date news and data for COVID-19</title>
+  <meta name="google-site-verification" content="K-Q0bR-_1KcxcaYMX19M2U4sdoxACyZynFq1XfaAKtY" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+  <meta name="description"
+    content="Creating awareness about COVID-19 and displaying data of confirmed, deaths, active and recovered cases in several countries including India and it's states.">
+  <meta name="keywords"
+    content="Covid, Covid 19, Coronavirus, Active, Deaths, Recovered, Confirmed, India, World, Coronavirus news, Covid 19 updates, daily graphs, cummulative graphs, covid news today, covid India, covid china">
+  <link rel="shortcut icon" href="public/covid.png">
+  <link rel="stylesheet" href="public/reg_css.css">
+  <link href="https://fonts.googleapis.com/css2?family=Muli&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</head>
+
+<body onload="f()">
+  <br>
+  <br>
+  <div class="hack_buttons" style="float: right; margin-right: 10vw;">
+    <a href="/index">Home</a>
+  </div>
+  <br>
+  <br>
+  <div class="header">
+    <h1>COVID-19 Tracker</h1>
+  </div>
+  <div class="contact_head">
+    <h1>Register Deceased</h1>
+  </div>
+
+  <div class="reg_final">
+
+    <form class="new_form" autocomplete="off">
+      <input type="text" class="new_inp" name="pat_id" placeholder="Patient ID" required>
+      <br>
+      <input type="date" class="new_inp" name="rep" placeholder="Reported On" required>
+      <br>
+      <input type="number" class="new_inp" name="age" placeholder="Age estimate" min="1" required>
+      <br>
+      <select name="gender" class="new_inp" placeholder="Gender" required>
+        <option value="Gender">Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <br>
+      <select name="state" class="new_inp" placeholder="State" id="state" required>
+        <option value="State">State</option>
+      </select>
+      <br>
+      <select name="status" class="new_inp" placeholder="Status" required>
+        <option value="Status">Status</option>
+        <option value="Deceased">Deceased</option>
+        <option value="Recovered" disabled="disabled">Recovered</option>
+        <option value="Active" disabled="disabled">Active</option>
+      </select> <br>
+      <button type="submit" class="submit_reg">Upload</button>
+      <p class="success_resp"></p>
+    </form>
+    <canvas id="myChart2"></canvas>
+  </div>
+</body>
+
+</html>
+
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/data/countries2.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script type="text/javascript" src="public/js.js"></script>
+<script type="text/javascript" src="public/globe.js"></script>
+<script type="text/javascript" src="public/search_bar.js"></script>
+<script type="text/javascript" src="public/search_bar.js"></script>
+<script type="text/javascript" src="public/charts.js"></script>
+<script type="text/javascript" src="public/hide.js"></script>
+<script type="text/javascript" src="public/news.js"></script>
+<script type="text/javascript" src="public/state.js"></script>
+<script type="text/javascript" src="public/country_world.js"></script>
+<script type="text/javascript" src="public/daily_graph.js"></script>
+<script type="text/javascript" src="public/notif.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+<script>
+  //let countries = []
+  async function f() {
+    const contact_data = await axios.get('https://api.rootnet.in/covid19-in/hospitals/beds')
+    console.log(contact_data.data)
+    for (i = 0; i < contact_data.data.data.regional.length; i++) {
+      var loc = `<option value="${contact_data.data.data.regional[i].state}">${contact_data.data.data.regional[i].state}</option>`;
+      $('.new_form').find('#state').append(loc);
+    }
+  }
+
+  var new_form = document.getElementsByClassName("new_form")[0]
+
+  new_form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    var pat_id = document.getElementsByClassName("new_inp")[0].value;
+    var rep = document.getElementsByClassName("new_inp")[1].value;
+    var age = document.getElementsByClassName("new_inp")[2].value;
+    var gender = document.getElementsByClassName("new_inp")[3].value;
+    var state = document.getElementsByClassName("new_inp")[4].value;
+    var status = document.getElementsByClassName("new_inp")[5].value;
+
+    var req_obj = {
+      pat_id,
+      rep,
+      age,
+      gender,
+      state,
+      status
+    }
+
+    console.log(req_obj)
+
+    const resp = await axios.post("https://covidport.herokuapp.com/register", req_obj)
+
+    if (resp.data.error) {
+      document.getElementsByClassName("success_resp")[0].innerHTML = "Registration unsuccessful. Please try again.";
+      document.getElementsByClassName("success_resp")[0].style.color = "red";
+      document.getElementsByClassName("success_resp")[0].style.fontWeight = "bold";
+
+    }
+    else {
+      document.getElementsByClassName("success_resp")[0].innerHTML = "You have successfully registered.";
+      document.getElementsByClassName("success_resp")[0].style.color = "green";
+      document.getElementsByClassName("success_resp")[0].style.fontWeight = "bold";
+
+    }
+  })
+
+  function display_states_death1(e_labels, e_death, country) {
+    console.log(country)
+    var ctx = document.getElementById('myChart2');
+    var myChart2 = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: e_labels,
+        datasets: [{
+          data: e_death,
+          label: country,
+          borderColor: "rgba(164, 6, 6,1)",
+          fill: false
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Death',
+          fontColor: "black",
+          fontSize: 20
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: 'black'
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: 'black'
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+            }
+          }]
+        },
+        legend: {
+          labels: {
+            fontColor: 'black',
+            fontSize: 15
+          }
+        }
+      }
+    });
+    if (screen.width <= 415) {
+      myChart2.options.title.fontSize = 10;
+      myChart2.options.scales.yAxes[0].ticks.fontSize = 8;
+      myChart2.options.scales.xAxes[0].ticks.fontSize = 8;
+      myChart2.options.legend.labels.fontSize = 10;
+    }
+  }
+
+  function display_charts1(everyday, country, val = 1) {
+    console.log(everyday, country, val)
+    var e_labels = [];
+    var e_confirmed = [];
+    var e_death = [];
+    var e_recovered = [];
+    var e_active = [];
+    var i = 0, j = 0;
+    if (val == 1) {
+      //document.getElementsByClassName("daily")[0].style.opacity=0.8;
+      //document.getElementsByClassName("cum")[0].style.opacity=1;
+      for (i = 0; i < everyday.length; i++) {
+        j = i + 1;
+        e_labels.push("Day " + j);
+        e_confirmed.push(everyday[i].confirmed);
+        e_death.push(everyday[i].deaths);
+        e_recovered.push(everyday[i].recovered);
+        e_active.push(everyday[i].active);
+      }
+    }
+    if (val == 0) {
+      document.getElementsByClassName("daily")[0].style.opacity = 1;
+      document.getElementsByClassName("cum")[0].style.opacity = 0.8;
+      for (i = 1; i < everyday.length; i++) {
+        j = i + 1;
+        e_labels.push("Day " + j);
+        e_confirmed.push(Math.max(everyday[i].confirmed - everyday[i - 1].confirmed, 0));
+        e_death.push(Math.max(everyday[i].deaths - everyday[i - 1].deaths, 0));
+        e_recovered.push(Math.max(everyday[i].recovered - everyday[i - 1].recovered, 0));
+        e_active.push(everyday[i].active);
+      }
+    }
+
+
+    //display_states_confirmed(e_labels,e_confirmed,country);
+    display_states_death1(e_labels, e_death, country);
+    //display_states_active(e_labels,e_active,country);
+    //display_states_recovered(e_labels,e_recovered,country);
+
+  }
+
+  function display_data1(data) {
+    if (data.msg == "No data to display") {
+      console.log("true");
+      hide_everything();
+      if (myChart1) {
+        myChart1.destroy();
+      }
+      if (myChart2) {
+        myChart2.destroy();
+      }
+      if (myChart3) {
+        myChart3.destroy();
+      }
+      if (myChart4) {
+        myChart4.destroy();
+      }
+      document.getElementById("error").innerHTML = "Sorry, we could not find any data for " + data.country + ".";
+      document.getElementById("error1").style.display = "block";
+      return;
+    }
+    else if (data.msg == 'Error Message') {
+      console.log("true");
+      hide_everything();
+      if (myChart1) {
+        myChart1.destroy();
+      }
+      if (myChart2) {
+        myChart2.destroy();
+      }
+      if (myChart3) {
+        myChart3.destroy();
+      }
+      if (myChart4) {
+        myChart4.destroy();
+      }
+      document.getElementById("error").innerHTML = "Sorry, we're having trouble fetching data. Please try again. Please check your internet connectivity.";
+      document.getElementById("error1").style.display = "block";
+      return;
+    }
+    else if (data.msg == 'Country Not found') {
+      console.log("true");
+      hide_everything();
+      if (myChart1) {
+        myChart1.destroy();
+      }
+      if (myChart2) {
+        myChart2.destroy();
+      }
+      if (myChart3) {
+        myChart3.destroy();
+      }
+      if (myChart4) {
+        myChart4.destroy();
+      }
+      document.getElementById("error").innerHTML = "Sorry, we could not find any data for " + data.country + ".";
+      document.getElementById("error1").style.display = "block";
+      return;
+    }
+    // document.getElementById("error").innerHTML="";
+    // document.getElementById("error1").style.display="none";
+    //document.getElementById('loading').style.display="none";
+    //document.getElementById('data_wrap').style.display="block";
+    //document.getElementsByClassName("graph_toggle_wrap")[0].style.display="block";
+    //document.getElementById('place_value').innerHTML=data.country;
+    //document.getElementById('active_count').innerHTML=formatNumber(data.active);
+    //document.getElementById('recovered_count').innerHTML=formatNumber(data.recovered);
+    //document.getElementById('death_count').innerHTML=formatNumber(data.deaths);
+    //document.getElementById('confirm_count').innerHTML=formatNumber(data.confirmed);
+    if (data.country != "World") {
+      console.log("heeeeeeeeybruuu")
+      // console.log(data.country)
+      //document.getElementsByClassName("news_wrap")[0].style.display="none";
+      display_charts1(data.everyday, data.country, 1);
+    }
+    else if (data.country == "World") {
+      document.getElementsByClassName("graph_toggle_wrap")[0].style.display = "none";
+      display_news(data.news);
+    }
+
+  }
+
+  axios.post('/region/country', { place: "India" })
+    .then(res => {
+      console.log(res.data)
+      if (res.data.state) {
+        return display_state_data(res.data);
+      }
+      return display_data1(res.data);
+    }
+    );
+
+</script>

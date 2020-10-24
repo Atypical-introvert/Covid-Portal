@@ -1,0 +1,141 @@
+.header {
+  margin-top: 2%;
+}
+
+.contact_head h1 {
+  text-align: center;
+  margin: 1% 0;
+  color: #17252a;
+  font-size: 2vw;
+}
+
+/* .contact_links {
+    border: solid 2px;
+    width: 350px;
+  } */
+ul {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0%;
+  padding: 0%;
+  display: flex;
+}
+ul li {
+  list-style: none;
+}
+ul li a {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: #f1f1f1;
+  display: block;
+  text-align: center;
+  margin: 0 10px;
+  border-radius: 50%;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.7s;
+}
+ul li a:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+ul li a .fa {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(0deg, #fff, #ddd);
+  border-radius: 50%;
+  line-height: calc(60px - 12px);
+  font-size: 24px;
+  color: #262626;
+  transition: 0.7s;
+}
+ul li:nth-child(1) a:hover .fa {
+  color: orangered;
+}
+ul li:nth-child(2) a:hover .fa {
+  color: #5cdb95;
+}
+ul li:nth-child(3) a:hover .fa {
+  color: #cd201f;
+}
+ul li:nth-child(4) a:hover .fa {
+  color: #0077b5;
+}
+ul li:nth-child(5) a:hover .fa {
+  color: #55acee;
+}
+
+.contact_icon {
+  width: 40px;
+  margin-right: 3%;
+}
+
+.Heading--Container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading {
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  padding-top: 2rem;
+}
+
+.contact_f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  top: 25%;
+  padding: 0 15%;
+}
+
+.table-fill {
+  width: 60%;
+  display: block;
+}
+
+.table-hover {
+  max-height: 50vw;
+}
+
+.contact_iframes {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2%;
+  width: 180%;
+  height: 40%;
+}
+
+.contact_wrap {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 3%;
+}
+.search_globe {
+  margin-top: 10%;
+}
+@media screen and (max-width: 600px) {
+  ul {
+    top: 135%;
+    padding-bottom: 5vh;
+  }
+  body {
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact_wrap {
+    width: 60%;
+
+    align-items: center;
+  }
+}

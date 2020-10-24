@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Muli", sans-serif;
+  background-color: #3aafa9;
+  overflow-y: auto;
+}
+
+.header {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.header h1 {
+  color: #feffff;
+  letter-spacing: 2px;
+  font-size: 3vw;
+}
+
+.contact_head {
+  text-align: center;
+}
+
+.new_form {
+  width: 25vw;
+  height: 55vh;
+  border: solid 3px #17252a;
+  border-radius: 8px;
+  padding: 2%;
+  margin: 4% auto;
+  text-align: center;
+  background-color: #feffff;
+}
+
+.new_inp {
+  padding: 1.5%;
+  margin: 2% 0;
+  background-color: transparent;
+  border: solid 3px #17252a;
+  border-width: 0 0 2px 0;
+  width: 80%;
+  font-size: 1.1vw;
+}
+
+input:focus {
+  outline: none !important;
+}
+
+.submit_reg {
+  width: 17vw;
+  text-decoration: none;
+  background-color: #17252a;
+  color: #feffff;
+  border-radius: 5px;
+  border: solid 3px #feffff;
+  transition: all 0.2s ease;
+  padding: 2% 1%;
+  font-weight: bold;
+  font-size: 1.1vw;
+  cursor: pointer;
+  margin-top: 9%;
+}
+
+.reg_final {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#myChart2 {
+  width: 50% !important;
+  height: 60% !important;
+  position: relative;
+  left: -10%;
+  background-color: #e7eff6;
+  box-shadow: -5px 1px 15px black;
+}
+@media screen and (max-width: 600px) {
+  .reg_final {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+  }
+  .new_form {
+    width: 60vw;
+    height: auto;
+  }
+  #myChart2 {
+    width: 60% !important;
+    margin-top: 5vh;
+    margin-left: 20vw;
+  }
+}

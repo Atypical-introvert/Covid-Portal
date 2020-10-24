@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>COVID-19 Tracker | Upto date news and data for COVID-19</title>
+	<meta name="google-site-verification" content="K-Q0bR-_1KcxcaYMX19M2U4sdoxACyZynFq1XfaAKtY" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+	<meta name="description"
+		content="Creating awareness about COVID-19 and displaying data of confirmed, deaths, active and recovered cases in several countries including India and it's states.">
+	<meta name="keywords"
+		content="Covid, Covid 19, Coronavirus, Active, Deaths, Recovered, Confirmed, India, World, Coronavirus news, Covid 19 updates, daily graphs, cummulative graphs, covid news today, covid India, covid china">
+	<link rel="shortcut icon" href="public/covid.png">
+	<link rel="stylesheet" href="public/css.css">
+	<link rel="stylesheet" href="public/css_resp.css">
+	<link rel="stylesheet" href="public/galaxy.css">
+	<link href="https://fonts.googleapis.com/css2?family=Muli&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</head>
+
+<body onload="location_track()">
+	<div class="super_wrap">
+		<div class="left_half">
+			<div class="header">
+				<h1>COVID Portal by Anuj Shukla</h1>
+			</div>
+			<div class="search_globe">
+				<form autocomplete="off">
+					<div class="autocomplete">
+						<input id="myInput" type="text" placeholder="Country or Indian State" required>
+					</div>
+					<button type="submit"><img
+							src="https://ya-webdesign.com/transparent250_/search-svg-15.png" /></button>
+				</form>
+				<img src="https://cdn0.iconfinder.com/data/icons/business-and-finance-92/64/earth-global-512.png"
+					class="globe_icon" onClick="world_data()" />
+			</div>
+			<div class="hack_buttons_wrap">
+				<div class="hack_buttons">
+					<a href="/contact">Contact and Helpline</a>
+					<a href="/notif">Notifications</a>
+				</div>
+				<div class="hack_buttons">
+					<a href="/hospital">Hospital and Beds</a>
+					<a href="/medical">Medical Colleges and Beds</a>
+				</div>
+				<div class="hack_buttons">
+					<a href="/reg">Register Deceased</a>
+				</div>
+			</div>
+			<div id="error1">
+				<div class="containerx">
+					<div class="alert-box scale-in">
+						<div class="alert-box--icon">
+							<i class="fas fa-exclamation-triangle"></i>
+						</div>
+						<div class="alert-box--content">
+							<h2>Oh no!</h2>
+							<p id="error"></p>
+						</div>
+						<div class="alert-box--button">
+							<a href="#" onClick="world_data()">Dismiss</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="data_wrap" class="animated fadeIn">
+				<div class="place">
+
+					<h1 id="place_value">WORLD</h1>
+
+				</div>
+				<div class="data1">
+					<div class="confirm">
+						<p>Confirmed : </p>
+						<p id="confirm_count">1234</p>
+					</div>
+					<div class="death">
+						<p>Deaths : </p>
+						<p id="death_count">1234</p>
+					</div>
+					<div class="active">
+						<p>Active : </p>
+						<p id="active_count">1234</p>
+					</div>
+					<div class="recovered">
+						<p>Recovered : </p>
+						<p id="recovered_count">1234</p>
+					</div>
+				</div>
+				<div class="news_wrap">
+					<div class="news_title_head">
+						<h1>Top COVID-19 News </h1>
+						<p class="news_main_update">(Updated)</p>
+					</div>
+					<div class="news_block">
+
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+						</p>
+					</div>
+					<div class="news_block">
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+
+						</p>
+					</div>
+					<div class="news_block">
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+
+						</p>
+					</div>
+					<div class="news_block">
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+
+						</p>
+					</div>
+					<div class="news_block">
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+
+						</p>
+					</div>
+					<div class="news_block">
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+
+						</p>
+					</div>
+					<div class="news_block">
+						<h1 class="news_title"><a href="#" class="news_link" target="_blank"></a></h1>
+						<p class="news_update"></p>
+
+
+						</p>
+					</div>
+
+				</div>
+				<table class="table-fill">
+					<thead>
+						<tr>
+							<th class="text-left">District</th>
+							<th class="text-left">Confirmed</th>
+							<th class="text-left">Deaths</th>
+							<th class="text-left">Active</th>
+							<th class="text-left">Recovered</th>
+						</tr>
+					</thead>
+					<tbody class="table-hover">
+
+					</tbody>
+				</table>
+				<div class="graph_toggle_wrap">
+					<div class="graph_toggle">
+						<div class="cum" onClick="cum_graph()">
+							<h1>Cummulative</h1>
+						</div>
+						<div class="daily" onClick="daily_graph()">
+							<h1>Daily</h1>
+						</div>
+					</div>
+				</div>
+				<canvas id="myChart1" class="animated fadeIn"></canvas>
+				<br>
+				<canvas id="myChart2" class="animated fadeIn"></canvas>
+				<br>
+				<canvas id="myChart3" class="animated fadeIn"></canvas>
+				<br>
+				<canvas id="myChart4" class="animated fadeIn"></canvas>
+			</div>
+
+			<div class="container loading" id="loading">
+				<div class="meta-information">
+					<div class="name skeleton">Demo User</div>
+				</div>
+				<div class="item_wrap">
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+				</div>
+				<div class="item_wrap2">
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+					<div class="meta-section">
+						<div class="thumbnail-image skeleton">
+						</div>
+					</div>
+				</div>
+			</div>
+			{{!-- <div class="repo_wrap">
+				<a href="https://github.com/dhingradeepanshu/vithack" target="_blank">
+					<div class="repo">
+						<img src="https://img.icons8.com/ios-filled/50/000000/github.png" />
+						<p>Open Sourced On Github.</p>
+					</div>
+				</a>
+			</div> --}}
+			<div class="strip_wrap">
+				<a href="/about">
+					<div class="strip">
+						{{!-- <img src="https://img.icons8.com/clouds/100/000000/about.png" /> --}}
+						{{!-- <p>About Us</p> --}}
+					</div>
+				</a>
+			</div>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+		</div>
+		<div class="right_half">
+			<div class="galaxy">
+				<div class="stars"></div>
+
+			</div>
+			<div id="chartdiv"></div>
+		</div>
+	</div>
+</body>
+
+</html>
+
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/data/countries2.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script type="text/javascript" src="public/js.js"></script>
+<script type="text/javascript" src="public/globe.js"></script>
+<script type="text/javascript" src="public/search_bar.js"></script>
+<script type="text/javascript" src="public/search_bar.js"></script>
+<script type="text/javascript" src="public/charts.js"></script>
+<script type="text/javascript" src="public/hide.js"></script>
+<script type="text/javascript" src="public/news.js"></script>
+<script type="text/javascript" src="public/state.js"></script>
+<script type="text/javascript" src="public/country_world.js"></script>
+<script type="text/javascript" src="public/daily_graph.js"></script>

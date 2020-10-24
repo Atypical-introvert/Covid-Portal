@@ -1,0 +1,61 @@
+.header {
+  margin-top: 2%;
+}
+
+.contact_head h1 {
+  text-align: center;
+  margin: 1% 0;
+  color: #17252a;
+  font-size: 2vw;
+}
+
+.contact_links {
+  border: solid 2px;
+  width: 350px;
+}
+
+.contact_icon {
+  width: 40px;
+  margin-right: 3%;
+}
+
+.contact_f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  top: 25%;
+  padding: 0 15%;
+}
+
+.table-fill {
+  width: 60%;
+  display: block;
+}
+
+.table-hover {
+  max-height: 50vw;
+}
+
+.contact_wrap {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 3%;
+}
+@media screen and (max-width: 600px) {
+  .table-fill {
+    height: 180%;
+    width: 60vh;
+    margin-top: 15vh;
+  }
+  .thead {
+    height: 100%;
+  }
+  .table-hover {
+    height: 190%;
+    width: 100%;
+  }
+  .header {
+    margin-top: 15vh;
+  }
+}
